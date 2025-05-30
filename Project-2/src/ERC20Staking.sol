@@ -25,7 +25,7 @@ contract ERC20Staking is Ownable {
     // Mapping to store stake info for each staker
     mapping(address => StakeInfo) public stakes;
 
-    // -------- Custom Errors (cheaper than revert strings) --------
+    // -------- Custom Errors --------
     error AlreadyStaking();                // User tried to stake again before withdrawing
     error NotStaking();                    // User tried to withdraw without staking
     error LockPeriodNotMet();             // Withdrawal attempted before minStakingTime
@@ -34,7 +34,7 @@ contract ERC20Staking is Ownable {
     error InvalidTime();                  // Admin tried to set an unreasonably short lock time
     error CannotRecoverStakingToken();    // Admin tried to recover the staking token itself
 
-    // -------- Events for front-end or external tracking --------
+    // -------- Events --------
     event Staked(address indexed user, uint256 amount);
     event Withdrawn(address indexed user, uint256 amount, uint256 reward);
     event RewardRateUpdated(uint256 newRate);
@@ -54,7 +54,7 @@ contract ERC20Staking is Ownable {
     }
 
     /**
-     * @notice Allows user to stake a fixed amount of tokens
+     * @notice Allows user to stake a fixed amount
      * @param amount Number of tokens to stake
      */
     function stake(uint256 amount) external {
@@ -97,8 +97,8 @@ contract ERC20Staking is Ownable {
 
     /**
      * @notice Calculates the staking reward for a user
-     * @param user Address of the staker
-     * @return reward Amount of reward tokens earned
+     * @param Address of the staker
+     * @return Amount of reward tokens earned
      */
     function calculateReward(address user) public view returns (uint256) {
         StakeInfo storage stakeData = stakes[user];
@@ -110,7 +110,7 @@ contract ERC20Staking is Ownable {
     }
 
     // ------------------------------------
-    // Admin Functions (onlyOwner modifier)
+    // Admin Functions (onlyOwner)
     // ------------------------------------
 
     /**

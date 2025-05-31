@@ -50,7 +50,7 @@ contract ERC20MultiTokenStaking is Ownable {
     // -------------------------
 
     /**
-     * @notice Enable or disable a staking token
+     * @notice enable or disable a staking token
      */
     function setAllowedToken(address token, bool allowed) external onlyOwner {
         allowedTokens[token] = allowed;
@@ -58,7 +58,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Set the reward token corresponding to a staking token
+     * @notice set the reward token corresponding to a staking token
      */
     function setRewardToken(address stakingToken, address rewardToken) external onlyOwner {
         rewardTokens[stakingToken] = IERC20(rewardToken);
@@ -66,7 +66,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Set reward rate (tokens per second) for a staking token
+     * @notice set reward rate (tokens per second) for a staking token
      */
     function setRewardRate(address token, uint256 rate) external onlyOwner {
         if (!allowedTokens[token]) revert TokenNotAllowed();
@@ -75,7 +75,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Set minimum staking time (in seconds) for a token
+     * @notice set minimum staking time (in seconds) for a token
      */
     function setMinStakingTime(address token, uint256 time) external onlyOwner {
         minStakingTime[token] = time;
@@ -83,7 +83,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Set maximum staking time (in seconds) for a token; 0 = no limit
+     * @notice set maximum staking time (in seconds) for a token; 0 = no limit
      */
     function setMaxStakingTime(address token, uint256 time) external onlyOwner {
         maxStakingTime[token] = time;
@@ -95,7 +95,7 @@ contract ERC20MultiTokenStaking is Ownable {
     // -------------------------
 
     /**
-     * @notice Stake a specific token
+     * @notice stake a specific token
      * @param token The ERC20 token to stake (must be allowed)
      * @param amount Amount to stake (must be > 0)
      */
@@ -115,7 +115,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Withdraw staked tokens and earned rewards
+     * @notice withdraw staked tokens and earned rewards
      * @param token The token to withdraw
      */
     function withdraw(address token) external {
@@ -153,7 +153,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Emergency withdraw staked tokens without rewards
+     * @notice emergency withdraw staked tokens without rewards
      * @param token Token to withdraw
      */
     function emergencyWithdraw(address token) external {
@@ -169,7 +169,7 @@ contract ERC20MultiTokenStaking is Ownable {
     }
 
     /**
-     * @notice Calculate pending rewards for a user on a token
+     * @notice calculate pending rewards for a user on a token
      */
     function calculateReward(address user, address token) public view returns (uint256) {
         StakeInfo storage userStake = stakes[token][user];
